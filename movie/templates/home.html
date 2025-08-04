@@ -7,5 +7,39 @@
 </head>
 <body>
     <h1>Welcome to the Movie Reviews Home Page {{name}}</h1>
+    <div class="container">
+    <form action="">
+        <div class="mb-3">
+            <label for="searchMovie" class="form-label">
+                Search for Movie:
+            </label>
+            <input type="text" class="form-control" name="searchMovie"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    
+    <p>Searching for "{{searchTerm}}"</p>
+    <p>Total movies found: {{ Movies|length }}</p>
+    
+    {% for movie in Movies %}
+        <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+            <h2>{{ movie.title }}</h2>
+            <h3>Director: {{ movie.director }}</h3>
+            {% if movie.imagen %}
+                <img src="{{ movie.imagen.url }}" alt="{{ movie.title }}" style="max-width: 300px;">
+                <p>Image path: {{ movie.imagen.url }}</p>
+            {% else %}
+                <p>No image available</p>
+            {% endif %}
+            {% if movie.url %}
+                <a href="{{ movie.url }}" target="_blank">Movie Link</a>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>No movies found.</p>
+    {% endfor %}
+    <br/>
+</div>
+
 </body>
 </html>
