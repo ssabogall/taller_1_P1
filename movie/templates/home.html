@@ -1,49 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous"> 
-</head>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Movie Reviews</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-    <h1>Welcome to the Movie Reviews Home Page {{name}}</h1>
-    <div class="container">
-    <form action="">
+    {% extends "base.html" %}
+
+    {% block title %}Inicio{% endblock %}
+
+    {% block content %}
+    <h1>Welcome to the Movie Reviews Home Page {{ name }}</h1>
+    <form action="" method="get">
         <div class="mb-3">
-            <label for="searchMovie" class="form-label">
-                Search for Movie:
-            </label>
-            <input type="text" class="form-control" name="searchMovie"/>
+            <label for="searchMovie" class="form-label">Search for Movie:</label>
+            <input type="text" class="form-control" name="searchMovie" id="searchMovie" />
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
-    
-    <p>Searching for "{{searchTerm}}"</p>
-    <p>Total movies found: {{ Movies|length }}</p>
-    
-    {% for movie in Movies %}
-        <div style="border: 1px solid #724582; margin: 10px; padding: 10px;">
-            <h2>{{ movie.title }}</h2>
-            <h3>Director: {{ movie.director }}</h3>
-            {% if movie.imagen %}
-                <img src="{{ movie.imagen.url }}" alt="{{ movie.title }}" style="max-width: 300px;">
-                <p>Image path: {{ movie.imagen.url }}</p>
-            {% else %}
-                <p>No image available</p>
-            {% endif %}
-            {% if movie.url %}
-                <a href="{{ movie.url }}" target="_blank">Movie Link</a>
-            {% endif %}
-        </div>
-    {% empty %}
-        <p>No movies found.</p>
-    {% endfor %}
-    <br/>
-</div>
 
+    <p>Searching for "{{ searchTerm }}"</p>
+    <p>Total movies found: {{ Movies|length }}</p>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for movie in Movies %}
+        <div class="col">
+            <div class="card h-100">
+                {% if movie.imagen %}
+                <img src="{{ movie.imagen.url }}" class="card-img-top" alt="{{ movie.title }}">
+                {% else %}
+                <div class="card-img-top bg-secondary text-white text-center py-5">No image available</div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Director: {{ movie.director }}</h6>
+                    {% if movie.url %}
+                    <a href="{{ movie.url }}" class="btn btn-primary" target="_blank">Movie Link</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No movies found.</p>
+        {% endfor %}
+    </div>
+    <br />
+    {% endblock %}
 </body>
+
 </html>
