@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 
-#lee el archivo de la base de datos
+#lee el archivo csv
 df = pd.read_csv('movies_initial.csv')
 
 #guardar el archivo en formato JSON

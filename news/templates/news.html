@@ -1,36 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Noticias - Movie Reviews</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-4">
-        {% extends "base.html" %}
+{% extends "base.html" %}
 
-        {% block content %}
-            <h1 class="mb-4">Noticias de Hoy</h1>
-            <div class="container mt-4">
-                {% for news in news_articles %}
-                    <div class="card mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ news.headline }}</h5>
-                                    <p class="card-text">{{ news.body }}</p>
-                                    <p class="card-text">
-                                        <small class="text-muted">{{ news.date }}</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% empty %}
-                    <div class="alert alert-info">No hay noticias disponibles.</div>
-                {% endfor %}
-            </div>
-        {% endblock %}
-    </div>
-</body>
-</html>
+{% block title %}News{% endblock %}
+
+{% block content %}
+<h1 class="h4 mb-3">Noticias de Hoy</h1>
+
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-8">  {# columna central como en la imagen #}
+
+    {% for n in news_articles %}
+      <article class="card mb-3 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-2">{{ n.headline }}</h5>
+          <p class="text-muted small mb-2">{{ n.date|date:"M. d, Y" }}</p>
+          <p class="card-text mb-0">{{ n.body }}</p>
+        </div>
+      </article>
+    {% empty %}
+      <div class="alert alert-info">No hay noticias disponibles.</div>
+    {% endfor %}
+
+  </div>
+</div>
+{% endblock %}

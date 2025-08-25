@@ -23,7 +23,7 @@ class Command(BaseCommand):
             if not exist:
                 try:              
                     Movie.objects.create(title = movie['title'],
-                                        image = 'media/movie/images/default.jpg',
+                                        image = 'movie/images/default.jpg',
                                         genre = movie['genre'],
                                         year = movie['year'],
                                         description = movie['plot'],)
