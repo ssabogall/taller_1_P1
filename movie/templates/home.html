@@ -12,12 +12,11 @@
 
 <p>Searching for {{ searchTerm|default:"None" }}</p>
 
-{# Grid flexible: 1 col en xs, 2 en sm, 3 en md, 4 en xl; ajusta si quieres #}
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4">
   {% for movie in movies %}
     <div class="col">
       <div class="card h-100 shadow-sm">
-        {# Imagen superior con tamaño uniforme (cuadrado) #}
+
         <div class="ratio ratio-1x1">
           <img
             src="{% if movie.image %}{{ movie.image.url }}{% else %}/media/movie/images/default.jpg{% endif %}"
@@ -29,16 +28,25 @@
         </div>
 
         <div class="card-body">
-          <h6 class="card-title fw-bold mb-1">{{ movie.title }}</h6>
+          <h6 class="card-title fw-bold mb-2">{{ movie.title }}</h6>
+
+          {# NUEVO: year y genre como badges Bootstrap #}
+          <div class="d-flex flex-wrap gap-2 mb-2">
+            <span class="badge text-bg-dark">Year: {{ movie.year|default:"—" }}</span>
+            <span class="badge text-bg-secondary">Genre: {{ movie.genre|default:"—" }}</span>
+          </div>
+
           {% if movie.description %}
             <p class="card-text mb-0">{{ movie.description }}</p>
           {% endif %}
+
           {% if movie.url %}
             <div class="mt-2">
               <a href="{{ movie.url }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Movie Link</a>
             </div>
           {% endif %}
         </div>
+
       </div>
     </div>
   {% empty %}
